@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import './css/PostCreation.css';
 import { useNavigate } from 'react-router-dom';
+import SendIcon from '@mui/icons-material/Send';
+import AddIcon from '@mui/icons-material/Add';
 
 const PostCreation = ({ authorId, token, postId }) => {
   const [content, setContent] = useState('');
@@ -33,7 +35,12 @@ const PostCreation = ({ authorId, token, postId }) => {
 
   return (
     <div className="post-creation">
-      <button onClick={() => setIsModalOpen(true)}>Create +</button>
+      <button className="createButton"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Create
+        <AddIcon />
+      </button>
       <Modal 
         isOpen={isModalOpen} 
         onRequestClose={() => setIsModalOpen(false)}
@@ -48,7 +55,9 @@ const PostCreation = ({ authorId, token, postId }) => {
             placeholder="What's on your mind?"
             maxLength={characterLimit}
           />
-          <button type="submit">Post</button>
+          <button className="sendButton">
+            <SendIcon />
+          </button>
         </form>
         {message && <p>{message}</p>}
       </Modal>

@@ -3,7 +3,6 @@
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
   }
   
@@ -33,20 +32,26 @@
     margin-top: 10px;
   }
 
-.modal-content {
-  width: 80% !important;
-  height: 50% !important;
-  margin: auto !important;
-  margin-top: 10% !important;
-  padding: 20px !important;
-  border: 1px solid #ccc !important;
-  border-radius: 4px !important;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
-}
-
-.modal-overlay {
-  background-color: rgba(0, 0, 0, 0.5) !important;
-}
+  .modal-content {
+    width: 50% !important; /* Adjust the width to make the modal smaller */
+    max-height: 70% !important; /* Add a max-height to make the modal smaller */
+    margin: auto !important;
+    margin-top: 10% !important;
+    padding: 20px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) !important;
+    position: fixed !important; /* Add this line to fix the position of the modal */
+    overflow: auto !important; /* Add this line to enable scrolling inside the modal */
+    right: 0; bottom: 0; left: 0; /* Add these lines to center the modal */
+    top: 20% !important;
+  }
+  
+  .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    position: fixed !important; /* Add this line to fix the position of the overlay */
+    top: 0; right: 0; bottom: 0; left: 0; /* Add these lines to cover the entire viewport */
+  }
 
 .modal-open {
   overflow: hidden;
