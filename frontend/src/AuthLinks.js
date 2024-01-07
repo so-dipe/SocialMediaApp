@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './components/Auth/Logout'
+import Logout from './components/Auth/Logout';
 
 const AuthLinks = () => {
   const isLoggedIn = useSelector(state => state.session.isLoggedIn);
@@ -14,7 +16,7 @@ const AuthLinks = () => {
         </>
       )}
       {isLoggedIn && (
-        <Link to="/logout">Logout</Link>
+        <Logout />
       )}
     </div>
   );

@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, status, Body
 from core.mongo import users_collection
 from ..auth.tokens import generate_token, verify_password, hash_password
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 router = APIRouter()
 
 class User(BaseModel):
-    username: str
-    password: str
+    username: str = Field(..., pattern="^[A-Za-z0-9-_]+$")
+    password: str = Field(..., pattern="^[^\s]+$")
 
 @router.post("/signup")
 async def signup(user: User = Body(...)):

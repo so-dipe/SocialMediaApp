@@ -1,0 +1,33 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Take up the full height of the viewport */
+}
+
+form {
+  display: flex; /* Add this line */
+  flex-direction: column; /* Add this line */
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"] { 
+  border: 2px solid #000;
+  border-top: None;
+  border-left: None;
+  border-right: None;
+  border-radius: 5px; /* Add curvature */
+  padding: 10px;
+  margin-bottom: 10px;
+  outline: none; /* Remove default outline */
+  width: 40%; /* Adjust the input fields width */
+}
+
+.login-container form input[type="text"]:focus,
+.login-container form input[type="password"]:focus {
+  border-width: 3px; /* Thicken border when input is focused */
+}

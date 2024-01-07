@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import { createPost } from '../../services/api/posts';
 import { connect } from 'react-redux';
+import Modal from 'react-modal';
 import './css/PostCreation.css';
+import { useNavigate } from 'react-router-dom';
 
 const PostCreation = ({ authorId, token, postId }) => {
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const characterLimit = 500;
+  const navigate = useNavigate();
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
@@ -15,9 +20,12 @@ const PostCreation = ({ authorId, token, postId }) => {
     }
 
     try {
-      await createPost(content, authorId, token, postId);
+      const response = await createPost(content, authorId, token, postId);
+      console.log(response)
       setContent(''); // Clear the textarea
       setMessage('Post created successfully.'); // Provide feedback
+      setIsModalOpen(false); // Close the modal
+      navigate(`/posts/${response.post_id}`); // Redirect to the post page 
     } catch (error) {
       setMessage('Error creating post.'); // Provide feedback
     }
@@ -25,16 +33,25 @@ const PostCreation = ({ authorId, token, postId }) => {
 
   return (
     <div className="post-creation">
-      <form onSubmit={handleCreatePost}>
-        <textarea 
-          className="post-creation__textarea" 
-          value={content} 
-          onChange={(e) => setContent(e.target.value)} 
-          placeholder="What's on your mind?"
-        />
-        <button className="post-creation__button" type="submit">Create Post</button>
-        {message && <p className="post-creation__message">{message}</p>}
-      </form>
+      <button onClick={() => setIsModalOpen(true)}>Create +</button>
+      <Modal 
+        isOpen={isModalOpen} 
+        onRequestClose={() => setIsModalOpen(false)}
+        className="modal-content"
+        overlayClassName="modal-overlay"
+      >
+        <form onSubmit={handleCreatePost}>
+          <textarea 
+            className="post-creation__textarea" 
+            value={content} 
+            onChange={(e) => setContent(e.target.value)} 
+            placeholder="What's on your mind?"
+            maxLength={characterLimit}
+          />
+          <button type="submit">Post</button>
+        </form>
+        {message && <p>{message}</p>}
+      </Modal>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import PostCreation from './components/Post/PostCreation';
 import { useSelector } from 'react-redux';
 import AuthLinks from './AuthLinks';
 import './Home.css';
+import Logout from './components/Auth/Logout';
 
 const Home = () => {
   const isLoggedIn = useSelector(state => state.session.isLoggedIn);
@@ -14,23 +15,26 @@ const Home = () => {
 
   return (
     <div className="centered-page">
-      <h1 className="centered-header">GraphTheory</h1>
-      {
-        !isLoggedIn && (
-          <div className="welcome-login-box">
-            <AuthLinks />
-          </div>
-        )
-      }
+      <div className="header-container"> {/* Add this line */}
+        <h1 className="centered-header">GraphTheory</h1>
+        {
+          !isLoggedIn ? (
+            <div className="auth-links">
+              <AuthLinks />
+            </div>
+          ) : (
+            <div className="auth-links">
+              <Logout />
+            </div>
+          )
+        }
+      </div> {/* Add this line */}
       {isLoggedIn && (
         <div className="welcome-logout-box">
           <h2>Welcome, {username}!</h2> 
-          <AuthLinks />
-        </div>
-      )}
-      {isLoggedIn && (
-        <div>
-          <PostCreation />
+          <div>
+            <PostCreation />
+          </div>
         </div>
       )}
       <div className="bordered-post-list">
