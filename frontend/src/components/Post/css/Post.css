@@ -1,0 +1,28 @@
+.post-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .post-container {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .post-author {
+    font-weight: bold;
+  }
+  
+  .post-content {
+    margin-top: 10px;
+  }
+  
+  .post-timestamp, .post-likes {
+    font-size: 0.8em;
+    color: #888;
+  }
+
+  .post-likes-container {
+    display: flex;
+    align-items: center;
+  }
