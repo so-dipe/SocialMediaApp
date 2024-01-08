@@ -12,6 +12,8 @@ class Config:
     SECRET=os.getenv("SECRET")
 
     SERVICE_ACCOUNT_KEY_PATH = os.getenv("SERVICE_ACCOUNT_KEY_PATH")
+
+    ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS")
     
     # PostgreSQL
     # POSTGRESQL_USERNAME = os.getenv("POSTGRESQL_USERNAME")

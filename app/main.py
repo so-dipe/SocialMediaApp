@@ -4,12 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.users import routes as user_routes
 from api.posts import routes as post_routes
 from api.auth import auth_routes 
+from core.config import Config
 
 app = FastAPI()
 
+allowed_origins = Config.ALLOWED_ORIGINS.split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:3000", "http://127.0.0.1:8080"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
