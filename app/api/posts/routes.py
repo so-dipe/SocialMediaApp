@@ -189,7 +189,7 @@ async def get_comments(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch comments: {str(e)}")
 
-@app.get("/api/posts/{post_id}/likes/{user_id}")
+@router.get("/api/posts/{post_id}/likes/{user_id}")
 async def check_like(post_id: str, user_id: str):
     obj_id = ObjectId(post_id)
     user_id = ObjectId(user_id)

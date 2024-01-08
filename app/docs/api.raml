@@ -1,0 +1,169 @@
+#%RAML 1.0
+title: My API
+version: v1
+baseUri: http://127.0.0.1:8000/{version}
+protocols: [ HTTP ]
+
+types:
+  # Define your data types here
+
+/api/v1/users:
+  # Define your user routes here
+
+/api/v1/posts:
+  /create:
+    post:
+      description: Create a new post
+      body:
+        application/json:
+          type: object
+          properties:
+            content:
+              type: string
+              description: The content of the post
+            authorId:
+              type: string
+              description: The ID of the author
+            parentId:
+              type: string
+              description: The ID of the parent post (optional)
+          required: [content, authorId]
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Post created successfully
+                postId:
+                  type: string
+                  example: 60d5ec9af682fbd39c2fa10c
+        400:
+          description: Content and authorId are required or Invalid parent post ID
+        500:
+          description: Failed to create post
+  
+  /{post_id}:
+    get:
+      description: Get a post by ID
+      uriParameters:
+        post_id:
+          type: string
+          description: The ID of the post
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                # Define the properties of a post here
+        404:
+          description: Post not found
+        500:
+          description: Failed to fetch post
+  /:
+    get:
+      description: Get a list of posts
+      queryParameters:
+        method:
+          type: string
+          description: Retrieval method (top-likes, latest, random)
+          required: true
+        count:
+          type: integer
+          description: Number of posts to return
+          default: 10
+      responses:
+        200:
+          body:
+            application/json:
+              type: array
+              items:
+                type: object
+                properties:
+                  # Define the properties of a post here
+        500:
+          description: Failed to fetch posts
+  
+  /{post_id}/like:
+    post:
+      description: Like or unlike a post
+      body:
+        application/json:
+          type: object
+          properties:
+            user_id:
+              type: string
+              description: The ID of the user
+          required: [user_id]
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Post liked successfully
+        400:
+          description: User ID is required
+        404:
+          description: Post not found
+        500:
+          description: Failed to like post
+  
+  /api/v1/posts:
+  /{post_id}/comments:
+    get:
+      description: Get comments for a post
+      uriParameters:
+        post_id:
+          type: string
+          description: The ID of the post
+      queryParameters:
+        method:
+          type: string
+          description: Retrieval method (top, latest, all)
+          default: latest
+        count:
+          type: integer
+          description: Number of comments to return
+          default: 10
+      responses:
+        200:
+          body:
+            application/json:
+              type: array
+              items:
+                type: object
+                properties:
+                  # Define the properties of a comment here
+        500:
+          description: Failed to fetch comments
+  /api/posts/{post_id}/likes/{user_id}:
+    get:
+      description: Check if a user has liked a post
+      uriParameters:
+        post_id:
+          type: string
+          description: The ID of the post
+        user_id:
+          type: string
+          description: The ID of the user
+      responses:
+        200:
+          body:
+            application/json:
+              type: object
+              properties:
+                # Define the properties of the response here
+        500:
+          description: Failed to check like
+
+/api/v1/auth:
+  # Define your auth routes here
+
+/ws:
+  # Define your WebSocket endpoint here
