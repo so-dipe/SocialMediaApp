@@ -1,28 +1,44 @@
 .post-link {
     text-decoration: none;
     color: inherit;
+    padding-top: 0;
+    margin-top: 0;
   }
-  
-  .post-container {
-    border: 1px solid #000;
+
+.post-container {
     padding: 10px;
-    margin: 10px;
+    padding-top: 0px;
+    margin: 0px;
+    border-radius: 10px;
   }
-  
+
+.post-container:hover {
+    background-color: #e7f6f8;
+  }
+
   .post-author {
     font-weight: bold;
   }
   
   .post-content {
-    margin-top: 10px;
+    margin-top: 5px;
   }
   
-  .post-timestamp, .post-likes {
+  .post-timestamp {
     font-size: 0.8em;
     color: #888;
+  }
+
+  .post-likes {
+    font-size: 1em;
+    font-style: bold;
   }
 
   .post-likes-container {
     display: flex;
     align-items: center;
+  }
+  
+  .spaced {
+    margin-right: 10px;
   }

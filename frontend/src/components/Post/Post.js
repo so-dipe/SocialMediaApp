@@ -1,9 +1,10 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import { differenceInSeconds, differenceInMinutes, differenceInHours, differenceInDays, parseISO, format } from 'date-fns';
 import './css/Post.css';
 import LikeButton from '../shared/LikeButton';
 import ReplyButton from '../shared/ReplyButton';
+import { checkLike } from '../../services/api/posts';
 
 const formatDistanceShort = (date1, date2) => {
   const diffInSeconds = differenceInSeconds(date1, date2);
@@ -25,6 +26,19 @@ const formatDistanceShort = (date1, date2) => {
 const Post = ({ post, userId, token }) => {
   const [numLikes, setNumLikes] = useState(post.num_likes);
   const [liked, setLiked] = useState(false); // Add this line
+
+  useEffect(() => {
+    const fetchLikedStatus = async () => {
+      try {
+        const likedStatus = await checkLike(post._id, userId);
+        setLiked(likedStatus);
+      } catch (error) {
+        console.error('Error fetching liked status:', error);
+      }
+    };
+  
+    fetchLikedStatus();
+  }, [post._id, userId]);
 
   const handleLike = (liked) => {
     setNumLikes(numLikes + (liked ? 1 : -1));
@@ -50,7 +64,7 @@ const Post = ({ post, userId, token }) => {
         <p className="post-content">{post.content}</p>
       </Link>
       <div className="post-likes-container">
-        <p className="post-likes">{numLikes}</p> {/* Moved this line next to LikeButton */}
+        <p className="post-likes spaced">{numLikes}</p> {/* Moved this line next to LikeButton */}
         <LikeButton postId={post._id} userId={userId} token={token} onLike={handleLike} liked={liked} setLiked={setLiked}/>
         <ReplyButton postId={post._id} authorId={userId} token={token} />
       </div>

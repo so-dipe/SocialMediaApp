@@ -69,3 +69,13 @@ export const getComments = async (postId) => {
       throw error;
     }
   };
+
+export const checkLike = async (postId, userId) => {
+  try {
+    const response = await axios.get(`${BaseUrl}/api/v1/posts/${postId}/likes/${userId}`);
+    return response.data.liked;
+  } catch (error) {
+    console.error('Error checking like:', error);
+    throw error;
+  }
+};

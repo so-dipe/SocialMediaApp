@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { createPost } from '../../services/api/posts';
 import socket from '../../services/websocket';
+import ChatIcon from '@mui/icons-material/Chat';
+import SendIcon from '@mui/icons-material/Send';
 
 const ReplyButton = ({ postId, authorId, token }) => {
   const [replyContent, setReplyContent] = useState('');
@@ -52,11 +54,11 @@ const ReplyButton = ({ postId, authorId, token }) => {
           onKeyUp={handleTyping}
           placeholder="reply post..."
         />
-        <button onClick={handleReply}>Submit</button>
+        <SendIcon onClick={handleReply} />
       </div>
     );
   } else {
-    return <button onClick={() => setIsReplying(true)}>Reply</button>;
+    return <ChatIcon onClick={() => setIsReplying(true)} />;
   }
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { likePost } from '../../services/api/posts';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const LikeButton = ({ postId, userId, token, onLike, liked, setLiked }) => {
 
@@ -14,9 +15,7 @@ const LikeButton = ({ postId, userId, token, onLike, liked, setLiked }) => {
   };
 
   return (
-    <button onClick={handleClick}>
-      {liked ? 'Unlike' : 'Like'}
-    </button>
+    <FavoriteIcon onClick={handleClick} color={liked ? 'primary' : 'action'} />
   );
 };
 
