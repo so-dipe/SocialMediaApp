@@ -56,7 +56,7 @@ const PostCreation = ({ authorId, token, postId }) => {
             maxLength={characterLimit}
           />
           <button className={`sendButton ${!content.trim() ? 'disabled' : ''}`}>
-            <SendIcon cx={{color: }}/>
+            <SendIcon />
           </button>
         </form>
         {message && <p>{message}</p>}
