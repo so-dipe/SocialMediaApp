@@ -1,38 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import socket from '../../services/websocket';
 
 const TypingStatus = ({ username }) => {
   const [isTyping, setIsTyping] = useState(false);
+  const typingTimeout = useRef();
 
   useEffect(() => {
-
-    socket.onopen = () => {
-        console.log('WebSocket connection opened');
-      };
-    
-      socket.onerror = (error) => {
-        console.error('WebSocket error:', error);
-      };
-    
-      socket.onclose = (event) => {
-        console.log('WebSocket connection closed:', event);
-      };
-
-      socket.onmessage = (event) => {
-        const message = event.data;
-        if (message === 'User is typing') {
-          setIsTyping(true);
-        } else if (message === 'User stopped typing') {
-          console.log('User stopped typing');
+    socket.onmessage = (event) => {
+      const message = event.data;
+      if (message === 'User is typing') {
+        setIsTyping(true);
+        
+        if (typingTimeout.current) clearTimeout(typingTimeout.current);
+      } else if (message === 'User stopped typing') {
+        console.log('User stopped typing');
+        // Set a new timeout
+        typingTimeout.current = setTimeout(() => {
           setIsTyping(false);
-        }
-      };
+        }, 1000);  // Wait 1000 milliseconds before setting isTyping to false
+      }
+    };
 
-    // return () => socket.close();
+    return () => {
+      if (typingTimeout.current) clearTimeout(typingTimeout.current);
+    };
   }, [username]);
 
   return (
-    <div>
+    <div style={{ backgroundColor: isTyping ? 'green' : 'transparent', color: 'white', padding: '10px' }}>
       {isTyping ? `${username} is typing...` : ''}
     </div>
   );

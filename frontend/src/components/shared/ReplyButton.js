@@ -29,24 +29,19 @@ const ReplyButton = ({ postId, authorId, token }) => {
   const handleTyping = (e) => {
     setReplyContent(e.target.value);
   
-    const now = Date.now();
-    const timeSinceLastTyping = now - lastTypingTime;
+    // Clear any existing timeout
+    clearTimeout(typingTimeout);
   
-    if (timeSinceLastTyping >= 10) {
+    // Set a new timeout
+    typingTimeout = setTimeout(() => {
       if (socket.readyState === WebSocket.OPEN) {
         socket.send('User is typing');
       }
-    }
+    }, 1000);  // Wait 1 sec before sending 'User is typing' message
   
-    setLastTypingTime(now);
-  
-    clearTimeout(typingTimeout);
-  
-    typingTimeout = setTimeout(() => {
-      if (socket.readyState === WebSocket.OPEN) {
+    if (socket.readyState === WebSocket.OPEN) {
         socket.send('User stopped typing');
       }
-    }, 1000);
   };
 
   if (isReplying) {
