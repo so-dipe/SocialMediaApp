@@ -80,7 +80,8 @@ async def get_posts(
             for post in top_liked_posts:
                 post["_id"] = str(post["_id"])
                 author = await get_user(str(post["author_id"]))
-                post["author_id"] = author
+                post["author"] = author
+                post["author_id"] = str(post["author_id"])
                 post["likes"] = None
 
             return top_liked_posts
@@ -90,9 +91,10 @@ async def get_posts(
             for post in latest_posts:
                 post["_id"] = str(post["_id"])
                 author = await get_user(str(post["author_id"]))
-                post["author_id"] = author
+                post["author"] = author
+                post["author_id"] = str(post["author_id"])
                 post["likes"] = None
-
+                
             return latest_posts
         elif method == "random":
             all_posts = await posts_collection.find({"parent_id": None}).to_list(length=None)
@@ -101,7 +103,8 @@ async def get_posts(
             for post in random_posts:
                 post["_id"] = str(post["_id"])
                 author = await get_user(str(post["author_id"]))
-                post["author_id"] = author
+                post["author"] = author
+                post["author_id"] = str(post["author_id"])
                 post["likes"] = None
 
             return random_posts
@@ -182,14 +185,16 @@ async def get_comments(
                 comment["_id"] = str(comment["_id"])
                 comment["parent_id"] = str(comment["parent_id"])
                 author = await get_user(str(comment["author_id"]))
-                comment["author_id"] = author
+                comment["author_id"] = str(comment["author_id"])
+                comment["author"] = author 
+                comment["likes"] = None
             return comments
         else:
             return "No comments yet"
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch comments: {str(e)}")
 
-@router.get("/api/posts/{post_id}/likes/{user_id}")
+@router.get("/{post_id}/likes")
 async def check_like(post_id: str, user_id: str):
     obj_id = ObjectId(post_id)
     user_id = ObjectId(user_id)
@@ -199,4 +204,4 @@ async def check_like(post_id: str, user_id: str):
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
 
-    return user_id in post.get("likes", [])
+    return {"liked": user_id in post.get("likes", [])}

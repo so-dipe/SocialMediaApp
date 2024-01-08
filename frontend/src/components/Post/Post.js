@@ -60,7 +60,7 @@ const Post = ({ post, userId, token }) => {
   return (
     <div className="post-container">
       <Link to={`/posts/${post._id}`} className="post-link">
-        <h3 className="post-author">{post.author_id} <span className="post-timestamp">{displayDate}</span></h3>
+        <h3 className="post-author">{post.author} <span className="post-timestamp">{displayDate}</span></h3>
         <p className="post-content">{post.content}</p>
       </Link>
       <div className="post-likes-container">
