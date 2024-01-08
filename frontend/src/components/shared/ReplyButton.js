@@ -31,9 +31,8 @@ const ReplyButton = ({ postId, authorId, token }) => {
   
     const now = Date.now();
     const timeSinceLastTyping = now - lastTypingTime;
-    console.log(lastTypingTime)
   
-    if (timeSinceLastTyping >= 1000) {
+    if (timeSinceLastTyping >= 10) {
       if (socket.readyState === WebSocket.OPEN) {
         socket.send('User is typing');
       }

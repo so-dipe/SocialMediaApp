@@ -5,10 +5,13 @@ import { getPost } from '../../services/api/posts';
 import TypingStatus from './TypingStatus';
 import Post from './Post';
 import CommentList from './CommentList';
+import './css/PostView.css';
+import { useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PostView = ({ userId, token }) => {
     const [post, setPost] = useState(null);
-  
+    const navigate = useNavigate();
     const { postId } = useParams();
   
     useEffect(() => {
@@ -26,11 +29,15 @@ const PostView = ({ userId, token }) => {
 
 
     return (
-      <div>
+      <div className="postView">
+        <div className="backButton">
+          <ArrowBackIcon onClick={() => navigate(-1)} fontSize="large" />
+        </div>
+
         {post && (
-          <div>
+          <div className="content">
             <Post key={post._id} post={post} userId={userId} token={token}/>
-            <TypingStatus username={post.author_id} /> {/* Pass author_id as username */}
+            <TypingStatus username={post.author} /> {/* Pass author_id as username */}
             {/* Render comments */}
             <CommentList postId={postId} token={token} />
           </div>

@@ -57,7 +57,8 @@ async def get_post(post_id: str):
         if post:
             post["_id"] = str(post["_id"])
             author = await get_user(str(post["author_id"]))
-            post["author_id"] = author
+            post["author_id"] = str(post["author_id"])
+            post["author"] = author
             post["likes"] = None
 
             if "parent_id" in post and post["parent_id"]:
