@@ -16,20 +16,23 @@
 }
 
 .bordered-post-list {
-  border: 1px solid #000;
-  padding: 10px;
-  margin: 10px;
+  padding: 5px;
+  margin: 5px;
   width: 100%;
 }
 
 .welcome-logout-box {
     display: flex;
     justify-content: space-between;
-    border: 1px solid #000;
     padding: 10px;
-    margin: 10px;
+    margin: 5px;
     width: 100%;
-    background-color: #5e5b5b;
+    background-color: #c9c8c8;
+    border-radius: 10px;
+  }
+
+.welcome-logout-box:hover {
+    background-color: #e0e0e0;
   }
 
   .auth-links {

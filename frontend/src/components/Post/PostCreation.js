@@ -17,7 +17,7 @@ const PostCreation = ({ authorId, token, postId }) => {
   const handleCreatePost = async (e) => {
     e.preventDefault();
     if (content.trim() === '') {
-      setMessage('Post content cannot be empty.');
+      // setMessage('Post content cannot be empty.');
       return;
     }
 
@@ -55,8 +55,8 @@ const PostCreation = ({ authorId, token, postId }) => {
             placeholder="What's on your mind?"
             maxLength={characterLimit}
           />
-          <button className="sendButton">
-            <SendIcon />
+          <button className={`sendButton ${!content.trim() ? 'disabled' : ''}`}>
+            <SendIcon cx={{color: }}/>
           </button>
         </form>
         {message && <p>{message}</p>}

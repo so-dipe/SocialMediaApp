@@ -1,0 +1,32 @@
+.reply-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .reply-input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    border-top: None; border-left: None; border-right: None;
+    outline: None;
+  }
+  
+  .reply-input:focus {
+    border-bottom: 4px solid #ccc;
+  }
+
+  .send-icon {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .chat-icon {
+    cursor: pointer;
+  }
+
+  .send-icon.disabled {
+    opacity: 0.5;
+    cursor: default;
+  }

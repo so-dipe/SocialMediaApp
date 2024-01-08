@@ -28,7 +28,6 @@ const PostList = ({ method, count, userId, token }) => {
 
   return (
     <div>
-      <h2>Posts</h2>
       {posts.map((post) => (
         <Post key={post._id} post={post} userId={userId} token={token}/>  // Use the Post component to render each post
       ))}

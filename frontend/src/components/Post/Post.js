@@ -63,9 +63,11 @@ const Post = ({ post, userId, token }) => {
         <h3 className="post-author">{post.author} <span className="post-timestamp">{displayDate}</span></h3>
         <p className="post-content">{post.content}</p>
       </Link>
+      <hr />
       <div className="post-likes-container">
         <p className="post-likes spaced">{numLikes}</p> {/* Moved this line next to LikeButton */}
         <LikeButton postId={post._id} userId={userId} token={token} onLike={handleLike} liked={liked} setLiked={setLiked}/>
+        <p className="post-likes spaced"> </p>
         <ReplyButton postId={post._id} authorId={userId} token={token} />
       </div>
     </div>
