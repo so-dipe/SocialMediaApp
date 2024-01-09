@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getPost } from '../../services/api/posts';
 import TypingStatus from './TypingStatus';
 import Post from './Post';
@@ -13,6 +13,7 @@ const PostView = ({ userId, token }) => {
     const [post, setPost] = useState(null);
     const navigate = useNavigate();
     const { postId } = useParams();
+    console.log(postId);
   
     useEffect(() => {
       const fetchPost = async () => {
@@ -23,7 +24,6 @@ const PostView = ({ userId, token }) => {
           console.error('Error fetching post and comments:', error);
         }
       };
-  
       fetchPost();
     }, [postId]);
 
@@ -33,7 +33,11 @@ const PostView = ({ userId, token }) => {
         <div className="backButton">
           <ArrowBackIcon onClick={() => navigate(-1)} fontSize="large" />
         </div>
-
+        {post && post.parent_id && (
+          <Link to={`/posts/${post.parent_id}`}>
+            <button>View Main Post</button>
+          </Link>
+        )}
         {post && (
           <div className="content">
             <Post key={post._id} post={post} userId={userId} token={token}/>

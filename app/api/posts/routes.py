@@ -75,7 +75,7 @@ async def get_posts(
     count: int = Query(10, description="Number of posts to return")
 ):
     try:
-        if method == "top-likes":
+        if method == "top":
             top_liked_posts = await posts_collection.find({"parent_id": None}).sort("likes", -1).limit(count).to_list(length=count)
 
             for post in top_liked_posts:

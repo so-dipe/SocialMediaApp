@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PostList from './components/Post/PostList';
 import PostCreation from './components/Post/PostCreation';
 import { useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ const Home = () => {
   const username = user ? user.username : '';
   const userId = user ? user.id : '';
   const token = user ? user.token : '';
+
+  const [method, setMethod] = useState('top');
 
   return (
     <div className="centered-page">
@@ -38,7 +40,13 @@ const Home = () => {
         </div>
       )}
       <div className="bordered-post-list">
-        <PostList method="latest" count={10} userId={userId} token={token}/>
+        <select value={method} onChange={e => setMethod(e.target.value)}>
+          <option value="top">Top</option>
+          <option value="random">Random</option>
+          <option value="latest">Latest</option>
+          {/* Add more options as needed */}
+        </select>
+        <PostList method={method} count={100} userId={userId} token={token}/>
       </div>
     </div>
   );

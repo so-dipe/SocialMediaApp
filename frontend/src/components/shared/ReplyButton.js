@@ -19,7 +19,8 @@ const ReplyButton = ({ postId, authorId, token }) => {
     try {
       await createPost(replyContent, authorId, token, postId);
       setReplyContent(''); // Clear the reply content after successfully creating the reply
-      setIsReplying(false); // Hide the reply input after submitting the reply
+      setIsReplying(false);
+      window.location.reload();
     } catch (error) {
       console.error('Error creating reply:', error);
     }
