@@ -6,6 +6,20 @@ import LikeButton from '../shared/LikeButton';
 import ReplyButton from '../shared/ReplyButton';
 import { checkLike } from '../../services/api/posts';
 
+const dropTimezone = (date) => {
+  const year = date.getUTCFullYear();
+  const month = date.getUTCMonth() + 1; // Months are 0-based in JavaScript
+  const day = date.getUTCDate();
+  const hours = date.getUTCHours();
+  const minutes = date.getUTCMinutes();
+  const seconds = date.getUTCSeconds();
+
+  // Construct a new date string in 'YYYY-MM-DDTHH:mm:ss' format
+  const dateString = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+  return new Date(dateString);
+};
+
 const formatDistanceShort = (date1, date2) => {
   const diffInSeconds = differenceInSeconds(date1, date2);
   const diffInMinutes = differenceInMinutes(date1, date2);
@@ -46,7 +60,8 @@ const Post = ({ post, userId, token }) => {
   };
 
   const postDate = parseISO(post.timestamp);
-  const now = new Date();
+  const now = dropTimezone(new Date());
+
   let displayDate;
 
   if (differenceInDays(now, postDate) <= 7) {
