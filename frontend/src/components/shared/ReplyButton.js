@@ -8,7 +8,6 @@ import './css/ReplyButton.css';
 const ReplyButton = ({ postId, authorId, token }) => {
   const [replyContent, setReplyContent] = useState('');
   const [isReplying, setIsReplying] = useState(false);
-  const [lastTypingTime, setLastTypingTime] = useState(Date.now()); 
   let typingTimeout;
 
   const handleReply = async () => {

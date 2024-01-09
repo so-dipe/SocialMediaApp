@@ -1,2 +1,4 @@
-export const BaseUrl = 'http://127.0.0.1:8000';
-export const wsUrl = "ws://127.0.0.1:8000";
+export const BaseUrl = process.env.REACT_APP_BASE_URL;
+console.log("BASE_URL", BaseUrl)
+export const wsUrl = `ws://${BaseUrl.split("//")[1]}`;
+console.log("WS_URL", wsUrl)

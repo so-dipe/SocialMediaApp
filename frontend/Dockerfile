@@ -1,4 +1,4 @@
-FROM node
+FROM node:slim
 
 WORKDIR /app
 
@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
+RUN npm install -g serve
+
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+CMD ["serve", "-s", "build"]
